@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 
 import okhttp3.OkHttpClient;
@@ -205,7 +206,11 @@ public class RNThreadModule extends ReactContextBaseJavaModule implements Lifecy
   }
 
   private void downloadScriptToFileSync(String bundleUrl, String bundleOut) {
-    OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient.Builder()
+      .connectTimeout(50, TimeUnit.SECONDS)
+      .writeTimeout(50, TimeUnit.SECONDS)
+      .readTimeout(50, TimeUnit.SECONDS)
+      .build();
     final File out = new File(bundleOut);
 
     Request request = new Request.Builder()
