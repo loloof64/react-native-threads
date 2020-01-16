@@ -206,10 +206,11 @@ public class RNThreadModule extends ReactContextBaseJavaModule implements Lifecy
   }
 
   private void downloadScriptToFileSync(String bundleUrl, String bundleOut) {
+    final int timeLimitSeconds = 100;
     OkHttpClient client = new OkHttpClient.Builder()
-      .connectTimeout(50, TimeUnit.SECONDS)
-      .writeTimeout(50, TimeUnit.SECONDS)
-      .readTimeout(50, TimeUnit.SECONDS)
+      .connectTimeout(timeLimitSeconds, TimeUnit.SECONDS)
+      .writeTimeout(timeLimitSeconds, TimeUnit.SECONDS)
+      .readTimeout(timeLimitSeconds, TimeUnit.SECONDS)
       .build();
     final File out = new File(bundleOut);
 
